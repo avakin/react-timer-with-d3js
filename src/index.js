@@ -1,10 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-
-ReactDOM.render(<App />, document.getElementById('root'));
+import React from "react";
+import ReactDOM from "react-dom";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import store, { persistor } from "./store/configureStore";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+//define redux HOC provider and persistor for our app
+ReactDOM.render(
+  <Provider store={store}>
+    <PersistGate laoding={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

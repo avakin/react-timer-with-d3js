@@ -1,0 +1,43 @@
+.input_holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.input_holder:first-of-type {
+  margin: 0 0 20px;
+}
+.input_placeholder {
+  margin: 0 15px 0 0;
+  flex: 0 0 auto;
+  min-width: 80px;
+}
+.input_wrapper {
+  border: 1px solid #ddd;
+}
+.input_control {
+  -webkit-appearance: none;
+  border: none;
+  box-shadow: none;
+  background: #f9f9f9;
+  padding: 10px 20px;
+  border-color: #ddd;
+  border-style: solid;
+}
+.input_control:first-of-type {
+  border-width: 0 1px 0 0;
+}
+.input_control:last-of-type {
+  border-width: 0 0 0 1px;
+}
+.input {
+  padding: 10px;
+  border: none;
+}
+@media screen and (max-width: 767px) {
+  .input {
+    max-width: 80px;
+  }
+  .input_placeholder {
+    font-size: 14px;
+  }
+}
