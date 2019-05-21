@@ -19,7 +19,17 @@ export class FinishedScreen extends Component {
     //add audio signal
     let audio = new Audio(alarmSound);
     //play audio
-    audio.play();
+    var playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(_ => {
+          // Automatic playback started
+        })
+        .catch(error => {
+          // Auto-play was prevented
+        });
+    }
     //create notification and add click event listener to it for getting back to aour app's tab
     let notification = new Notification("Your timer was finished!");
     notification.onclick = function(x) {
