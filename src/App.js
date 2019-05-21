@@ -13,12 +13,11 @@ class App extends React.Component {
     const { setupNotificationPermission } = this.props;
     // check if browser support notifications
     if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
+      window.alert("This browser does not support desktop notification");
       setupNotificationPermission(false);
     }
     // check if user allow notifications sending
     else if (Notification.permission === "granted") {
-      // Если разрешено, то создаем уведомление
       setupNotificationPermission(true);
     }
     // if no, try to get permission for notifications

@@ -32,7 +32,7 @@ export class FinishedScreen extends Component {
     }
     //create notification and add click event listener to it for getting back to aour app's tab
     let notification = new Notification("Your timer was finished!");
-    notification.onclick = function(x) {
+    notification.onclick = function(e) {
       window.focus();
       this.close();
     };
