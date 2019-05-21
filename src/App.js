@@ -2,9 +2,37 @@ import React from "react";
 import { ProgressScreen, HomeScreen, FinishedScreen } from "./screens";
 import { connect } from "react-redux";
 import styles from "./styles.module.css";
+import { setupNotificationPermission } from "./actions/actions";
 class App extends React.Component {
+  componentDidMount() {
+    //get notifications permission after mounting root component
+    this.getNotificationPermission();
+  }
+
+  getNotificationPermission = () => {
+    const { setupNotificationPermission } = this.props;
+    // check if browser support notifications
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+      setupNotificationPermission(false);
+    }
+    // check if user allow notifications sending
+    else if (Notification.permission === "granted") {
+      // Если разрешено, то создаем уведомление
+      setupNotificationPermission(true);
+    }
+    // if no, try to get permission for notifications
+    else if (Notification.permission !== "denied") {
+      Notification.requestPermission(function(permission) {
+        // if permissions was allowed, setup the prop, that notifications was allowed and supported
+        if (permission === "granted") {
+          setupNotificationPermission(true);
+        }
+      });
+    }
+  };
   render() {
-    //getting props from store to define waht screen we need to display
+    //getting props from store to define what screen we need to display
     const { screen, start } = this.props;
     return (
       <div className={styles.container}>
@@ -27,5 +55,5 @@ const mapStateToProps = ({ timer }) => ({
 });
 export default connect(
   mapStateToProps,
-  {}
+  { setupNotificationPermission }
 )(App);

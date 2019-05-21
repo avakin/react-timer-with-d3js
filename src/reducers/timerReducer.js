@@ -8,7 +8,8 @@ const initialState = {
     seconds: 0
   },
   fullDistance: 0,
-  screen: "home"
+  screen: "home",
+  notification: false
 };
 
 export default (state = initialState, action) => {
@@ -65,6 +66,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         screen: "home"
+      };
+    case Types.SETUP_NOTIFICATION_PERMISSION:
+      return {
+        ...state,
+        notification: action.payload.val
       };
     default:
       return state;

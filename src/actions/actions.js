@@ -29,3 +29,8 @@ export const startNewTimer = () => ({
 export const resumeTimer = () => ({
   type: Types.RESUME_TIMER
 });
+
+export const setupNotificationPermission = val => ({
+  type: Types.SETUP_NOTIFICATION_PERMISSION,
+  payload: { val }
+});

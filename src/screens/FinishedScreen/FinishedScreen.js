@@ -3,10 +3,30 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { startNewTimer } from "../../actions/actions";
 import styles from "../../styles.module.css";
-
+import alarmSound from "../../assets/light.mp3";
 export class FinishedScreen extends Component {
   static propTypes = {
     startNewTimer: PropTypes.func.isRequired
+  };
+  componentDidMount() {
+    const { notification } = this.props;
+    // play notification if user allowed permission
+    if (notification) {
+      this.notifyMe();
+    }
+  }
+  notifyMe = () => {
+    //add audio signal
+    let audio = new Audio(alarmSound);
+    //play audio
+    audio.play();
+    //create notification and add click event listener to it for getting back to aour app's tab
+    let notification = new Notification("Your timer was finished!");
+    notification.onclick = function(x) {
+      window.focus();
+      this.close();
+    };
+    return notification;
   };
   dissmiss = () => {
     //function to go home screen
@@ -29,8 +49,10 @@ export class FinishedScreen extends Component {
     );
   }
 }
-
+const mapStateToProps = ({ timer }) => ({
+  notification: timer.notification
+});
 export default connect(
-  null,
+  mapStateToProps,
   { startNewTimer }
 )(FinishedScreen);
